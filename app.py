@@ -1,11 +1,14 @@
 import gradio as gr
 import cv2
 import tempfile
+import torch
 from ultralytics import YOLOv10
 
 
-def yolov10_inference(image, video, model_id, image_size, conf_threshold):
+def yolov10_inference(image, video, model_id, image_size, conf_threshold, device):
     model = YOLOv10.from_pretrained(f'jameslahm/{model_id}')
+    model.to(device)
+
     if image:
         results = model.predict(source=image, imgsz=image_size, conf=conf_threshold)
         annotated_image = results[0].plot()
@@ -102,10 +105,11 @@ def app():
         )
 
         def run_inference(image, video, model_id, image_size, conf_threshold, input_type):
+            device = torch.device("cuda:0")
             if input_type == "Image":
-                return yolov10_inference(image, None, model_id, image_size, conf_threshold)
+                return yolov10_inference(image, None, model_id, image_size, conf_threshold, device)
             else:
-                return yolov10_inference(None, video, model_id, image_size, conf_threshold)
+                return yolov10_inference(None, video, model_id, image_size, conf_threshold, device)
 
 
         yolov10_infer.click(
