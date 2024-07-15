@@ -1,0 +1,18 @@
+services:
+  demo: 
+    #image: "tdhuy/pytorch-yolov10"
+    build:
+      context: ./
+    ports:
+      - "7860:7860"
+    volumes:
+      - "./yolov10:/workspace/yolov10"
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    stdin_open: true
+    tty: true
