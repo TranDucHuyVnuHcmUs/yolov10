@@ -5,7 +5,7 @@ import torch
 from ultralytics import YOLOv10
 
 
-def yolov10_inference(image, video, model_id, image_size, conf_threshold, device):
+def yolov10_inference(image, video, model_id, image_size, conf_threshold, device = 'cuda:0'):
     model = YOLOv10.from_pretrained(f'jameslahm/{model_id}')
     model.to(device)
 

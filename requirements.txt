@@ -8,7 +8,7 @@ scipy
 onnxsim
 onnxruntime-gpu
 gradio
-opencv-python-headless
+opencv-python
 psutil
 py-cpuinfo
 huggingface-hub
