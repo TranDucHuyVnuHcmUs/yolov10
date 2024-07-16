@@ -6,7 +6,7 @@ services:
     ports:
       - "7860:7860"
     volumes:
-      - "./yolov10:/workspace/yolov10"
+      - "./:/workspace/yolov10"
     devices:
       - /dev/bus/usb:/dev/bus/usb
     deploy:
